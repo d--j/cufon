@@ -621,7 +621,8 @@ var Cufon = (function() {
 			||	elementsByTagName
 		),
 		separate: 'words', // 'none' and 'characters' are also accepted
-		textShadow: 'none'
+		textShadow: 'none',
+		textModifier: function(text) { return text; }
 	};
 	
 	var separators = {
@@ -777,7 +778,7 @@ Cufon.registerEngine('canvas', (function() {
 			}
 		}
 		
-		var chars = Cufon.CSS.textTransform(text, style).split(''), chr;
+		var chars = Cufon.CSS.textTransform(options.textModifier(text), style).split(''), chr;
 		
 		var glyphs = font.glyphs, glyph, kerning, k;
 		var width = 0, advance, jumps = [];
@@ -1057,7 +1058,7 @@ Cufon.registerEngine('vml', (function() {
 		var textDecoration = options.enableTextDecoration ? Cufon.CSS.textDecoration(el, style) : {};
 		
 		var color = style.get('color');
-		var chars = Cufon.CSS.textTransform(text, style).split(''), chr;
+		var chars = Cufon.CSS.textTransform(options.textModifier(text), style).split(''), chr;
 		
 		var glyphs = font.glyphs, glyph, kerning, k;
 		var width = 0, jumps = [], offsetX = 0, advance;
